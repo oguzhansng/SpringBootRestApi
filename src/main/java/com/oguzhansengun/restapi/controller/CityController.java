@@ -45,13 +45,20 @@ public class CityController {
         return new ResponseEntity<>(newCity,HttpStatus.CREATED);
     }
 
-    @PutMapping({"/{id}"})
+    @PutMapping("/{id}")
     public ResponseEntity<Void> updateCity(@PathVariable String id, @RequestBody City newCity){
         City oldCity = getCityById(id);
         oldCity.setName(newCity.getName());
         oldCity.setCreateDate(new Date());
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCity(@PathVariable String id){
+        cities.remove(getCityById(id));
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
     private City getCityById(String id){
         return cities.stream()
